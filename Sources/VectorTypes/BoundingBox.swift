@@ -56,6 +56,13 @@ public struct BoundingBox<PointType: Point> {
     }
     return result;
   }
+  
+  public func offsetRatio(point: PointType, axis: PointType.AxisType) -> PointType.ValueType
+  where PointType.ValueType: FloatingPoint {
+    let o = point - minBound;
+    let scaleFactor = maxBound[axis] - minBound[axis];
+    return o[axis] / scaleFactor
+  }
 }
 
 extension BoundingBox : Sendable where PointType : Sendable {
