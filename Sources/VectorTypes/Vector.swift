@@ -8,8 +8,7 @@
 import Foundation
 
 public protocol Vector : IndexableVector {
-  associatedtype AxisType
-  associatedtype MaskType
+  associatedtype MaskType: Mask
   
   subscript(_ axis: AxisType) -> ValueType { get }
   func length() -> ValueType
