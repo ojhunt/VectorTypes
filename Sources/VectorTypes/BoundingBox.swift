@@ -43,6 +43,10 @@ public struct BoundingBox<PointType: Point> {
   public func merge(point: PointType) -> Self {
     return BoundingBox(min: PointType.minElements(minBound, point), max: PointType.maxElements(maxBound, point))
   }
+
+  func centroid() -> PointType where PointType.VectorType : Vector {
+    return minBound + (maxBound - minBound) / 2;
+  }
 }
 
 extension BoundingBox : Sendable where PointType : Sendable {
