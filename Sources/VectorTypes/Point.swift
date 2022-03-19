@@ -17,8 +17,6 @@ public protocol Point: Equatable {
   static func minElements(_ left: Self, _ right: Self) -> Self;
   static func maxElements(_ left: Self, _ right: Self) -> Self;
 
-  static func random(in: BoundingBox<Self>) -> Self
-
   subscript(_ axis: AxisType) -> ValueType { get }
   
   static func - (left: Self, right: Self) -> VectorType

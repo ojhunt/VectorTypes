@@ -10,7 +10,7 @@ public protocol IndexableVector {
   associatedtype ValueType: Numeric & Comparable
 
   subscript(_ axis: AxisType) -> ValueType { get }
-  init(splat: ValueType)
+  init(repeating: ValueType)
   func squaredLength() -> ValueType
 }
 
