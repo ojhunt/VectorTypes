@@ -14,7 +14,7 @@ public protocol IndexableVector {
   func squaredLength() -> ValueType
 }
 
-extension IndexableVector where AxisType: IterableAxis {
+public extension IndexableVector where AxisType: IterableAxis {
   func squaredLength() -> ValueType {
     var result : ValueType = ValueType.zero
     for axis in AxisType.allAxes {
