@@ -44,7 +44,7 @@ public struct BoundingBox<PointType: Point> {
     return BoundingBox(min: PointType.minElements(minBound, point), max: PointType.maxElements(maxBound, point))
   }
 
-  func centroid() -> PointType where PointType.VectorType : Vector {
+  public func centroid() -> PointType where PointType.VectorType : Vector {
     return minBound + (maxBound - minBound) / 2;
   }
 }
