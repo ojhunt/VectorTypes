@@ -47,6 +47,15 @@ public struct BoundingBox<PointType: Point> {
   public func centroid() -> PointType where PointType.VectorType : Vector {
     return minBound + (maxBound - minBound) / 2;
   }
+  
+  public func surfaceArea() -> PointType.ValueType {
+    let size = maxBound - minBound;
+    var result = PointType.ValueType(exactly: 1)!
+    for axis in PointType.AxisType.allAxes {
+      result *= size[axis]
+    }
+    return result;
+  }
 }
 
 extension BoundingBox : Sendable where PointType : Sendable {
