@@ -8,7 +8,7 @@
 import Foundation
 
 public protocol Vector : IndexableVector {
-  associatedtype MaskType: Mask
+  associatedtype MaskType: Mask where MaskType.AxisType == AxisType
   
   subscript(_ axis: AxisType) -> ValueType { get }
   func length() -> ValueType
