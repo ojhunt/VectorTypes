@@ -28,7 +28,7 @@ public protocol Point: Equatable {
   static func .> (left: Self, right: Self) -> MaskType
 }
 
-extension Point where AxisType: CaseIterable {
+public extension Point where AxisType: CaseIterable {
   typealias AllAxes = AxisType.AllCases
   static var allAxes: AllAxes { AxisType.allCases }
 }
