@@ -6,21 +6,21 @@
 //
 
 @frozen public struct BoundingBox<PointType: Point> {
-  typealias AxisType = PointType.AxisType
+  @usableFromInline typealias AxisType = PointType.AxisType
   
   @inline(__always) public let minBound: PointType;
   @inline(__always) public let maxBound: PointType;
-  @inline(__always) public init() {
+  @inlinable @inline(__always) public init() {
     minBound = PointType.max
     maxBound = PointType.min
   }
   
-  @inline(__always) public init(min: PointType, max: PointType) {
+  @inlinable @inline(__always) public init(min: PointType, max: PointType) {
     self.minBound = min
     self.maxBound = max
   }
   
-  @inline(__always) public func maxAxis() -> PointType.AxisType {
+  @inlinable @inline(__always) public func maxAxis() -> PointType.AxisType {
     let range = maxBound - minBound;
     let cases = AxisType.allAxes
     let startIndex = cases.startIndex
@@ -36,19 +36,19 @@
     return max;
   }
   
-  @inline(__always) public func merge(other: Self) -> Self {
+  @inlinable @inline(__always) public func merge(other: Self) -> Self {
     return BoundingBox(min: PointType.minElements(minBound, other.minBound), max: PointType.maxElements(maxBound, other.maxBound))
   }
   
-  @inline(__always) public func merge(point: PointType) -> Self {
+  @inlinable @inline(__always) public func merge(point: PointType) -> Self {
     return BoundingBox(min: PointType.minElements(minBound, point), max: PointType.maxElements(maxBound, point))
   }
 
-  @inline(__always) public func centroid() -> PointType where PointType.VectorType : Vector {
+  @inlinable @inline(__always) public func centroid() -> PointType where PointType.VectorType : Vector {
     return minBound + (maxBound - minBound) / 2;
   }
   
-  @inline(__always) public func surfaceArea() -> PointType.ValueType {
+  @inlinable @inline(__always) public func surfaceArea() -> PointType.ValueType {
     let size = maxBound - minBound;
     var result = PointType.ValueType(exactly: 1)!
     for axis in PointType.AxisType.allAxes {
@@ -57,7 +57,7 @@
     return result;
   }
   
-  @inline(__always) public func offsetRatio(point: PointType, axis: PointType.AxisType) -> PointType.ValueType
+  @inlinable @inline(__always) public func offsetRatio(point: PointType, axis: PointType.AxisType) -> PointType.ValueType
   where PointType.ValueType: FloatingPoint {
     let o = point - minBound;
     let scaleFactor = maxBound[axis] - minBound[axis];
@@ -76,13 +76,13 @@ public protocol IntConvertibleFloatingPoint: FloatingPoint, ExpressibleByFloatLi
 }
 
 extension Float: IntConvertibleFloatingPoint {
-  @inline(__always) public var asInteger: Int {
+  @inlinable @inline(__always) public var asInteger: Int {
     return Int(self)
   }
 }
 
 extension Double: IntConvertibleFloatingPoint {
-  @inline(__always) public var asInteger: Int {
+  @inlinable @inline(__always) public var asInteger: Int {
     return Int(self)
   }
 }
@@ -95,13 +95,13 @@ public protocol Ray {
 }
 
 public extension BoundingBox where PointType: Point, PointType.ValueType: IntConvertibleFloatingPoint, PointType.VectorType: Vector {
-  @inline(__always) func offsetRatio(point: PointType, axis: PointType.AxisType) -> PointType.ValueType {
+  @inlinable @inline(__always) func offsetRatio(point: PointType, axis: PointType.AxisType) -> PointType.ValueType {
     let o = point - minBound;
     let scaleFactor = maxBound[axis] - minBound[axis];
     return o[axis] / scaleFactor
   }
   
-  @inline(__always) func surfaceArea() -> PointType.ValueType {
+  @inlinable @inline(__always) func surfaceArea() -> PointType.ValueType {
     let size = maxBound - minBound;
     var result = PointType.ValueType(1.0)
     for axis in PointType.AxisType.allAxes {
@@ -110,7 +110,7 @@ public extension BoundingBox where PointType: Point, PointType.ValueType: IntCon
     return result;
   }
 
-  @inline(__always) func intersect<RayType: Ray>(_ ray: RayType, min near: RayType.ValueType, max far: RayType.ValueType) -> (min: RayType.ValueType, max: RayType.ValueType)?
+  @inlinable @inline(__always) func intersect<RayType: Ray>(_ ray: RayType, min near: RayType.ValueType, max far: RayType.ValueType) -> (min: RayType.ValueType, max: RayType.ValueType)?
   where RayType.PointType == PointType {
     var tmin = PointType.VectorType(repeating: near);
     var tmax = PointType.VectorType(repeating: far);
