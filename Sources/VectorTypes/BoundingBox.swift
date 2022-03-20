@@ -15,7 +15,7 @@ public struct BoundingBox<PointType: Point> {
     maxBound = PointType.min
   }
   
-  init(min: PointType, max: PointType) {
+  public init(min: PointType, max: PointType) {
     self.minBound = min
     self.maxBound = max
   }
