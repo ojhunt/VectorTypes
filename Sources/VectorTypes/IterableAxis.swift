@@ -14,5 +14,5 @@ public protocol IterableAxis {
 
 public extension CaseIterable where Self: IterableAxis {
   typealias AllAxes = Self.AllCases
-  static var allAxes: Self.AllCases { Self.allCases }
+  @inlinable @inline(__always) static var allAxes: Self.AllCases { Self.allCases }
 }
